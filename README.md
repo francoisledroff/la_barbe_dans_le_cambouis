@@ -1,7 +1,5 @@
-# la_barbe_dans_le_cambouis
+### La Barbe dans le cambouis : Sécurisons une bonne vieille application Java "Entreprise"
 
-
-La Barbe dans le cambouis : Sécurisons une bonne vieille application Java "Entreprise"
 c'est le titre de notre prochain **Hands-on-lab à [Devoxx France 2018](https://devoxx.fr/)**
 
       A travers un audit de sécurité partiel, partial mais participatif, François et Romain vous proposent dans cette session de corriger un cas d’étude : une bonne vieille application Java "Entreprise".

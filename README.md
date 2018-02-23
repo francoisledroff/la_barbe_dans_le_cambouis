@@ -2,7 +2,7 @@
 
 
 La Barbe dans le cambouis : Sécurisons une bonne vieille application Java "Entreprise"
-c'est le titre de notre prochain hands-on-lab à [Devoxx France 2018](https://devoxx.fr/)
+c'est le titre de notre prochain **Hands-on-lab à [Devoxx France 2018](https://devoxx.fr/)**
 
       A travers un audit de sécurité partiel, partial mais participatif, François et Romain vous proposent dans cette session de corriger un cas d’étude : une bonne vieille application Java "Entreprise".
 
@@ -17,4 +17,4 @@ c'est le titre de notre prochain hands-on-lab à [Devoxx France 2018](https://de
       Ce Hands-on-Lab reprendra les éléments évoqués durant la conférence donnée à Devoxx en 2015 et l'article paru dans Linux Mag en 2017 intitulés `Chez les Barbus – Java & Sécurité`.
       
       
-**Vous trouverez ici prochainement tout le code et les binaires à télécharger dans le cadre de ce lab**
+**Vous trouverez ici prochainement tout le code et les binaires à télécharger dans le cadre de ce Hands-on-lab**

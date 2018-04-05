@@ -13,10 +13,9 @@ public class DanslecambouisApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DanslecambouisApplication.class, args);
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/ping")
 	public String ping() {
 		return "pong";
 	}
-
 }

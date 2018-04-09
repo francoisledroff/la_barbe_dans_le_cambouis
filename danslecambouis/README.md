@@ -1,9 +1,16 @@
 
 
+## Test Drive
 
 start keycloak docker
 
     docker-compose -f src/main/docker/keycloak.yml up
+   
+ping to our barbus-app at http://localhost:9091/ping
+
+user `user/password` to log in
+
+get a `pong`    
 
 
 ## notes to self

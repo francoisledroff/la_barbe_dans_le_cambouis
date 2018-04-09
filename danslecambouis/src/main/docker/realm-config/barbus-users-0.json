@@ -1,0 +1,31 @@
+{
+  "realm" : "barbus",
+  "users" : [ {
+    "id" : "1adc1259-a7d0-47a4-b114-4223cc123a82",
+    "createdTimestamp" : 1523267996903,
+    "username" : "user",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "slmwY3uX6/UM2KaWBMtrd7IakOaHzSz/b4SJDy+GVB0GbFn0AhwsPVEyQCgRVdTVWQF8gNwRQeT2Z96r2oyiFA==",
+      "salt" : "H7Z+FpNAnA9K8dahA/ARhw==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523268007116,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "api-user", "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

@@ -35,6 +35,7 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 
 (genre, on sait ce qu'on fait...)
 
+* prérequis
 * lab1 - notre application ("build and deploy")
 * lab2 - mise en place d'une solution d'identity
 * lab3 - mise en place et sécurisation de Swagger
@@ -45,6 +46,17 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 * lab8 - chiffrement des données persistées
 
 ---
+# Prérequis
+
+* Java - JDK installé, son IDE préféré, et maven
+* Docker - docker et docker-compose installé, plus la 'registry' suivante:
+* TODO
+* Systèmes d'exploitation:
+* Linux: Desactiver SELinux
+* MacOS: Demerdez vous, bande hipster
+* Windows: Not an OS, réinstaller un Linux
+
+---
 
 # Une bonne vielle app Java...
 
@@ -52,24 +64,82 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 
 ---
 
+# Lab1 - Construire et démarrer le micro -service
+
+* TODO: Spring Boot en qql mots
+* TODO: la app en qql mots
+* git clone from... (tag!)
+* 'cd' into 'danslecambouis'
+* $ mvnw compile (erreur)
+* implémenter le corps de la méthode 'ping'
+* $ mvn compile
+* $ mvn spring-boot:run
+* tester avec $ curl http://localhost:9080/ping
+
+Exercice supplémentaire: TODO
+
+---
+
+# Lab2 - Démarrer Keycloak
+
+* Keycloak en qql mots
+* docker-compose -f src/main/docker/keycloak up
+* vérifier en vous connectant sur http://(ip-keycloak)/
+* cred: admin/admin
+
+* retrouver l'IP attribué par Docker: $ docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
+
+---
+# Lab2 - Définir de notre royaume de sécurité
+
+* capture d'écran FLD
+
+---
+# Lab2 - Tester la mise en place du royaume de sécurité
+
+* connectez vous avec le user crée
+* en admin faites expirer la session de cet utilisateur
+
+---
+# Lab2 - Mettre en place l'authentification à l'aide Keycloak
+
+* git clone ... / tag
+* modifier la configuration fournises dans application.properties pour fonctionner avec votre instance keycloak
+
+* Pour les plus avancés... Utiliser Spring Security, plutôt que le fichier application.properties pour intégrer Keycloak.
+
+---
+# Lab3 - Mise en place de Swagger
+
+TODO
+
+---
+# Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
+
+
+* $ docker -f src/main/docker/nginx.yml up
+* modifier la configuration fournises pour rediriger proprement vers votre service:
+* (editer le fichier src/main/docker/nginx-config/basic-rp.conf)
+* tester avec curl http://(ip-du-conteneur)/ping
+* ajouter une redirection pour aussi "masquer" keycloak derrière ce proxy
+* modifier en conséquence la configuration de votre service
+* et celle de Keycloak
+* interdiser les requêtes POST, DELETE, HEAD et PUT en direction de /ping
+* de la même manière, limiter les requêtes vers Swagger au strict minimum
+* configurer nginx pour refuser les requêtes vers /ping contenant des paramètres
+
+---
+# Lab5 - Mise en place du chiffrement SSL devant /ping et swagger
+
+TODO
+
+---
 # Frameworking your way out of security...
 
 .center[![Spring Security Logo](img/spring-security.logo.png)]
 
 ---
 
-# Lab1  - "Buildons" notre app (15')
-
-* git clone from
-* 'cd' into 'barbus2'
-* $ mvnw
-* test avec ...
-
----
-
-# Lab2 - Sécuriser avec Keycloak (15')
-
-TODO
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">

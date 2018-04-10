@@ -3,13 +3,13 @@
 ## Test Drive
 
 * start keycloak docker `docker-compose -f src/main/docker/keycloak.yml up`
-* start this from your IDE using `DanslecambouisApplication`     
+* start this from your IDE using `DanslecambouisApplication`
 
 
 ### ping (opened)
-   
+
 * ping our barbus-app, by browsing to http://localhost:9091/ping
-* get a `pong`  
+* get a `pong`
 
 ### account (secured)
 
@@ -18,11 +18,11 @@
 * user `user/password` to log in
 * be redirected
 * get a `TODO` for now
-  
-### swagger 
+
+### swagger
 
 Explore our API documentation at
-* browse to http://localhost:9091/swagger-ui/index.html
+* browse to http://localhost:9091/swagger-ui.html
   * the json spec is available at http://localhost:9091/v2/api-docs
 
 

@@ -142,19 +142,92 @@ Exercice supplémentaire: TODO
 TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
 
 ---
+# Lab6 - Intégration avec Sprint Security
+
+* Frameworking your way out of security...
+
+.center[![Spring Security Logo](img/spring-security.logo.png)]
+
+* (... because we can't gradle the shit out of it)
+
+---
+# Lab7 - Le "Security Manager" (par configuration)
+
+* Le Java Sécurity Manager en quelques mots... et un jolie (?) dessin
+
+.center[![Java Security Manager Architecture](img/security-manager.png)]
+
+---
+# Lab7 - Le "Security Manager" (par configuration)
+
+* Démarrer votre service en activant le système manager (sans configuration, "deny all"):
+*   $ java ... -Djava.security.manager -Djava.security.policy=file:///no.policy
+* Note: si le fichier no.policy n'existe pas (ou est vide), aucune autorisation donnée à l'applicatif!!!
+* Avec Spring Boot:
+.center[![Java Security Manager + Spring Boot](img/springboot-with-secman.png)]
+
+---
+# Lab7 - Le "Security Manager" (par configuration)
+
+* Modifier la configuration suivante pour permettre le démarrage du service avec le securité manager
+<pre>
+<code>
+grant {
+&nbsp;&nbsp;&nbsp;permission java.util.PropertyPermission  "*", "read, write";
+&nbsp;&nbsp;&nbsp;permission java.util.PropertyPermission "java.awt.headless", "read";
+&nbsp;&nbsp;&nbsp;permission java.io.FilePermission
+&nbsp;&nbsp;&nbsp;&nbsp;"[path-to]/devoxx-france-lab-2018.git/danslecambouis", "read";
+&nbsp;&nbsp;&nbsp;permission java.lang.reflect.ReflectPermission "*";
+};
+</code>
+</pre>
+---
+# Lab7 - Le "Security Manager" (version programmatique)
+
+* "Ca marche pas!" et ça peut demander <a href="http://blog.sevagas.com/?Enable-securitymanager-for-Spring-and-Hibernate">beaucoup de boulot</a>.
+* C'est l'enfer, hein? Bon faisons autrement...
+* Créer votre propre SecurityManager!
+<pre>
+<code>
+public class PingSecurityManager extends SecurityManager {
+...}
+</pre>
+</code>
+* Et injecte le dans votre application:
+<pre>
+<code>
+if ( System.getSecurityManager() == null )
+			System.setSecurityManager(new PingSecurityManager());
+</code>
+</pre>
+* Surcharger les méthodes checkPermission (vide) pour autoriser l'app a accéder aux properties
+* Surcharger la méthode checkAccept pour autoriser le démarrage du serveur
+
+---
+# Lab7 - Le "Sécurity Manager" (version programmatique)
+
+* Ajouter les méthodes nécessaires pour autoriser l'accès à la base de données
+
+* Exo Avancé: implémenter  checkPermission pour n'autoriser que les accès aux propriétés nécessaires
+
+---
+# Lab7 - Approche alternative: SELinux
+
+* SELinux en quelques mots...
+* TODO:
+
+---
 # Lab9 - Pour aller plus loin...
 
 * une attaque peut changer le contenu du fichier de journalisation (valide pour SELinux/SecurityManager)
 * ajout d'un checksum pour assurer que le contenu du fichier est correct
 
 ---
-# Frameworking your way out of security...
+# Conclusion
 
-.center[![Spring Security Logo](img/spring-security.logo.png)]
-
----
-
-
+* It was fun! (we hope)
+* You learn stuff! (we hope)
+* Your laptop still works (hopefully)
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>

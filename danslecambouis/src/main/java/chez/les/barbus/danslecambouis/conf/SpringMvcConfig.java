@@ -24,7 +24,8 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     // the below is working a 404 in the hard-coded path within the ui within the springfox webjar
-    registry.addRedirectViewController("/configuration/ui", "/swagger-resources/configuration/ui");
+    registry.addRedirectViewController("/configuration/ui",
+        "/swagger-resources/configuration/ui");
     registry.addRedirectViewController("/configuration/security",
         "/swagger-resources/configuration/security");
   }

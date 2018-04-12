@@ -17,7 +17,7 @@
 * be re-directed to keycloak
 * user `user/password` to log in
 * be redirected
-* get a `TODO` for now
+* get a `TODO account for principal <keycloak-username>` for now
 
 ### swagger
 
@@ -37,6 +37,10 @@ Explore our API documentation at
 to export the keycloak realm and users
 
     bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/Users/ledroff/workspace/github/la_barbe_dans_le_cambouis/danslecambouis/src/main/docker/realm-config-export
+
+### KeyCloak and spring security
+
+* https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/
 
 ### swagger:
 

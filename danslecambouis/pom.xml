@@ -81,7 +81,12 @@
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                  <jvmArguments>
+                    -Djava.security.manager -Djava.security.policy=file:///no.policy
+                  </jvmArguments>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>

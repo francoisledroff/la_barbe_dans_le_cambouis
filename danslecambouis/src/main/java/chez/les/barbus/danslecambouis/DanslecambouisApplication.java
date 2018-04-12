@@ -9,8 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class DanslecambouisApplication {
 
 	public static void main(String[] args) {
-		if ( System.getSecurityManager() == null )
-			System.setSecurityManager(new PingSecurityManager());
+		/*if ( System.getSecurityManager() == null )
+			System.setSecurityManager(new PingSecurityManager());*/
 		SpringApplication.run(DanslecambouisApplication.class, args);
 	}
 

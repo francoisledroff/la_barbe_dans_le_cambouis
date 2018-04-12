@@ -111,7 +111,7 @@ Exercice supplémentaire: TODO
 ---
 # Lab3 - Mise en place de Swagger
 
-TODO
+* recopier les instructions du README ici?
 
 ---
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
@@ -127,11 +127,19 @@ TODO
 * interdiser les requêtes POST, DELETE, HEAD et PUT en direction de /ping
 * de la même manière, limiter les requêtes vers Swagger au strict minimum
 * configurer nginx pour refuser les requêtes vers /ping contenant des paramètres
+* configurer nginx pour refuser les requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes.
 
 ---
 # Lab5 - Mise en place du chiffrement SSL devant /ping et swagger
 
-TODO
+* git ... (tag)
+* corriger la configuration fourni
+* générer les certificats nécessaires et ajoute le volume associé
+* tester que SSL fonctionne (https://localhost/)
+* tester que /ping and /account sont toujours accessible via https
+* incident: revoquer le certificat et le remplacer par un nouveau
+
+TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
 
 ---
 # Lab9 - Pour aller plus loin...

@@ -60,6 +60,30 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
   protected void configure(HttpSecurity http) throws Exception
   {
     super.configure(http);
+
+    //http
+        //.csrf().disable()
+        //.headers().disable()
+        //.headers().frameOptions().sameOrigin();
+
+
+    /*
+    cf. https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control
+    Spring Security allows users to easily inject the default security headers to assist in protecting their application.
+    The default for Spring Security is to include the following headers:
+
+      Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+      Pragma: no-cache
+      Expires: 0
+
+      X-Content-Type-Options: nosniff
+
+      Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+      X-Frame-Options: DENY
+      X-XSS-Protection: 1; mode=block
+
+     */
+
     http.authorizeRequests()
         .antMatchers("/account*").hasRole("api-user")
         .anyRequest().permitAll();

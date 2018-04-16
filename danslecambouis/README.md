@@ -81,3 +81,9 @@ to export the keycloak realm and users
 
 * https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html
 * https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control
+
+###### oauth
+
+https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
+https://spring.io/guides/tutorials/spring-boot-oauth2/
+https://github.com/spring-guides/tut-spring-boot-oauth2/blob/master/github/src/main/java/com/example/SocialApplication.java

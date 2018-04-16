@@ -42,9 +42,10 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 * lab4 - mise en place d'un reverse-proxy filtrant
 * lab5 - mise en place du chiffrement SSL
 * lab6 - intégration avec Sprint Security
-* lab7 - protéger le système de l'application avec le Security Manager
-* lab8 - base de données - chiffrement des données persistées et connexion sécurisée
+* lab7 - base de données - chiffrement et connexion sécurisée
+* lab8 - protéger le système de l'application avec le Security Manager et SELinux
 * lab9 - intégrité du fichier du contenu du fichier de journalisation
+
 ---
 # Prérequis
 
@@ -113,6 +114,11 @@ Exercice supplémentaire: TODO
 
 * recopier les instructions du README ici?
 
+### swagger
+
+Explore our API documentation at
+* browse to http://localhost:9091/swagger-ui.html
+
 ---
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
 
@@ -142,13 +148,58 @@ Exercice supplémentaire: TODO
 TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
 
 ---
-# Lab6 - Intégration avec Sprint Security
+# Lab6 - Intégration avec Spring Security
 
 * Frameworking your way out of security...
 
 .center[![Spring Security Logo](img/spring-security.logo.png)]
 
 * (... because we can't gradle the shit out of it)
+
+---
+# Lab6 - Mise en place de Spring Security
+
+* ajouter Spring Security aux dépendances du projet
+* ajouter la configuration d'un connecteur Keycloak pour Spring Security
+* migrer la configuration de KeyCloak du application.properties dans une classe qui étend KeycloakWebSecurityConfigurerAdapter
+* Tester et vérifier que l'intégration avec Keycloak fonctionne toujours sans encombre
+
+* Ref: <a href="https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/">Spring Boot with Keycloak</a>
+
+---
+# Lab6 - CSRF et Cache control
+
+* Vérifier le bon fonctionnement de l'API '/stuff' fournise (git clone [tag])
+* Mettre en place la protection contre le <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html">CSRF</a> et la <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control">gestion du cache</a> à l'aide de Spring Security
+* Vérifier le bon fonctionnement de ces configurations à l'aide des requêtes curl suivante:
+
+    curl -v http://localhost:9091/stuff
+    curl -v -H "Content-Type: application/json" -X POST -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
+    curl -v -H "Content-Type: application/json" -X DELETE -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
+
+* Vérifier que les messages de retour sont cohérent avec les attentes:
+
+    {"timestamp":1523630530507,"status":403,"error":"Forbidden","message":"Could not verify the provided CSRF token because your session was not found.","path":"/stuff"}
+
+* Vérifier la présence des nombreux entêtes de sécurité ajoutés par Spring Security:
+
+       Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+       Pragma: no-cache
+       Expires: 0
+
+       X-Content-Type-Options: nosniff
+
+       Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+       X-Frame-Options: DENY
+       X-XSS-Protection: 1; mode=block
+
+---
+# Lab7 - Base de données
+
+TODO:
+* mise en place de MongoDB
+* connexion sécurisée (SSL)
+* chiffrement des données
 
 ---
 # Lab7 - Le "Security Manager" (par configuration)
@@ -158,7 +209,7 @@ TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-sign
 .center[![Java Security Manager Architecture](img/security-manager.png)]
 
 ---
-# Lab7 - Le "Security Manager" (par configuration)
+# Lab8 - Le "Security Manager" (par configuration)
 
 * Démarrer votre service en activant le système manager (sans configuration, "deny all"):
 *   $ java ... -Djava.security.manager -Djava.security.policy=file:///no.policy
@@ -167,7 +218,7 @@ TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-sign
 .center[![Java Security Manager + Spring Boot](img/springboot-with-secman.png)]
 
 ---
-# Lab7 - Le "Security Manager" (par configuration)
+# Lab8 - Le "Security Manager" (par configuration)
 
 * Modifier la configuration suivante pour permettre le démarrage du service avec le securité manager
 <pre>
@@ -182,7 +233,7 @@ grant {
 </code>
 </pre>
 ---
-# Lab7 - Le "Security Manager" (version programmatique)
+# Lab8 - Le "Security Manager" (version programmatique)
 
 * "Ca marche pas!" et ça peut demander <a href="http://blog.sevagas.com/?Enable-securitymanager-for-Spring-and-Hibernate">beaucoup de boulot</a>.
 * C'est l'enfer, hein? Bon faisons autrement...
@@ -204,14 +255,14 @@ if ( System.getSecurityManager() == null )
 * Surcharger la méthode checkAccept pour autoriser le démarrage du serveur
 
 ---
-# Lab7 - Le "Sécurity Manager" (version programmatique)
+# Lab8 - Le "Sécurity Manager" (version programmatique)
 
 * Ajouter les méthodes nécessaires pour autoriser l'accès à la base de données
 
 * Exo Avancé: implémenter  checkPermission pour n'autoriser que les accès aux propriétés nécessaires
 
 ---
-# Lab7 - Aller plus loin... SELinux
+# Lab8 - Aller plus loin... SELinux
 
 * SELinux en quelques mots... (<a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index">Docs</a>)
 .center[![](img/selinux-arch.png)]
@@ -222,15 +273,10 @@ if ( System.getSecurityManager() == null )
 confiner à /ping (volume monté, mappé sur la racine du projet)
 
 ---
-# Lab7 -  Aller plus loin... SELinux
+# Lab8 -  Aller plus loin... SELinux
 
 * Modifier l'utilisateur pour l'associer à
 * $ semanage login -a -s user_u pingservice
-
----
-# Lab8 - Base de données
-
-* TODO
 
 ---
 # Lab9 - Pour aller plus loin...

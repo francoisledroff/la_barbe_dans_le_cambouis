@@ -16,7 +16,13 @@
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
       .big-list { font-size:200%; }
       .bigger-list { font-size: 280%; }
-      .timer { text-align:right; font-style: italic; font-size: 200%; height: 50px;      }
+      .timer { text-align:right; font-style: italic; font-size: 200%; height: 50px; }
+      .console { font-family:Courier;
+                 color: #CCCCCC;
+                 background: #000000;
+                 border: 3px double #CCCCCC;
+                 padding: 10px;
+      }
     </style>
   </head>
   <body>
@@ -70,13 +76,17 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 <div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 * TODO: Spring Boot en qql mots
 * TODO: la app en qql mots
-* git clone from... (tag!)
-* 'cd' into 'danslecambouis'
-* $ mvnw compile (erreur)
+
+<pre class="console">
+$ git clone from... (tag!)
+$ 'cd' into 'danslecambouis'
+$ mvnw compile (erreur)
+</pre>
 * implémenter le corps de la méthode 'ping'
-* $ mvn compile
-* $ mvn spring-boot:run
-* tester avec $ curl http://localhost:9080/ping
+<pre class="console">
+$ mvn spring-boot:run
+$ curl http://localhost:9080/ping
+</pre>
 
 Pour aller plus loin...:
 * Modifier '/ping' pour accepter un paramètre (hostname) et exécuter un 'ping' sur le nom de domaine fourni en argument
@@ -87,11 +97,17 @@ Pour aller plus loin...:
 # Lab2 - Démarrer Keycloak
 <div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
 * TODO: Keycloak en qql mots
-* docker-compose -f src/main/docker/keycloak up
+* Démarrer l'instance Keycloak:
+<pre class="console">
+docker-compose -f src/main/docker/keycloak up
+</pre>
 * vérifier en vous connectant sur http://(ip-keycloak)/
-* cred: admin/admin
+* identificant de connexion admin/admin
 
-* retrouver l'IP attribué par Docker: $ docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
+* Astuce: retrouver l'IP attribué par Docker:
+<pre class="console">$ docker ps -q \
+    | xargs docker inspect --format '{{ .Id }} \
+    - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'</pre>
 
 ---
 # Lab2 - Définir de notre royaume de sécurité
@@ -129,7 +145,8 @@ TODO
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
 <div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
-* $ docker -f src/main/docker/nginx.yml up
+* Démarrer l'instance nginx:
+<pre class="console">$ docker -f src/main/docker/nginx.yml up</pre>
 * modifier la configuration fournises pour rediriger proprement vers votre service:
 * (editer le fichier src/main/docker/nginx-config/basic-rp.conf)
 * tester avec curl http://(ip-du-conteneur)/ping
@@ -188,26 +205,43 @@ Pour aller plus loin...
 * Vérifier le bon fonctionnement de l'API '/stuff' fournise (git clone [tag])
 * Mettre en place la protection contre le <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html">CSRF</a> et la <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control">gestion du cache</a> à l'aide de Spring Security
 * Vérifier le bon fonctionnement de ces configurations à l'aide des requêtes curl suivante:
-
+<pre class="console">
     curl -v http://localhost:9091/stuff
-    curl -v -H "Content-Type: application/json" -X POST -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
-    curl -v -H "Content-Type: application/json" -X DELETE -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
+    curl -v -H "Content-Type: application/json" \
+        -X POST -d '{"title":"un titre","text":"du texte"}' \
+        http://localhost:9091/stuff
+    curl -v -H "Content-Type: application/json" \
+        -X DELETE \
+        -d '{"title":"un titre","text":"du texte"}' \
+        http://localhost:9091/stuff
+</pre>
+
+---
+# Lab6 - CSRF et Cache control
 
 * Vérifier que les messages de retour sont cohérent avec les attentes:
+<pre class="console">
+{"timestamp":1523630530507,"status":403,
+"error":"Forbidden", "message":"Could not
+verify the provided CSRF token because your
+session was not found.","path":"/stuff"}
+</pre>
 
-    {"timestamp":1523630530507,"status":403,"error":"Forbidden","message":"Could not verify the provided CSRF token because your session was not found.","path":"/stuff"}
+---
+# Lab6 - CSRF et Cache control
 
 * Vérifier la présence des nombreux entêtes de sécurité ajoutés par Spring Security:
-
-       Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-       Pragma: no-cache
-       Expires: 0
-
-       X-Content-Type-Options: nosniff
-
-       Strict-Transport-Security: max-age=31536000 ; includeSubDomains
-       X-Frame-Options: DENY
-       X-XSS-Protection: 1; mode=block
+<pre class="console">
+Cache-Control: no-cache, no-store,
+    max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Content-Type-Options: nosniff
+Strict-Transport-Security:
+    max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+</pre>
 
 ---
 # Lab7 - Base de données
@@ -228,9 +262,15 @@ TODO:
 # Lab8 - Le "Security Manager" (par configuration)
 <div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
-* Démarrer votre service en activant le système manager (sans configuration, "deny all"):
-*   $ java ... -Djava.security.manager -Djava.security.policy=file:///no.policy
+* Démarrer votre service en activant le système manager (sans configuration, "deny all")
+<pre class="console"> $ java ... \
+    -Djava.security.manager \
+    -Djava.security.policy=file:///no.policy
+</pre>
 * Note: si le fichier no.policy n'existe pas (ou est vide), aucune autorisation donnée à l'applicatif!!!
+
+---
+# Lab8 - Le "Security Manager" (par configuration)
 
 * Avec Spring Boot:
 .center[![Java Security Manager + Spring Boot](img/springboot-with-secman.png)]
@@ -239,7 +279,7 @@ TODO:
 # Lab8 - Le "Security Manager" (par configuration)
 
 * Modifier la configuration suivante pour permettre le démarrage du service avec le securité manager
-<pre>
+<pre class="console">
 <code>
 grant {
 &nbsp;&nbsp;&nbsp;permission java.util.PropertyPermission  "*", "read, write";
@@ -295,9 +335,8 @@ confiner à /ping (volume monté, mappé sur la racine du projet)
 ---
 # Lab8 -  Aller plus loin... SELinux
 
-* Modifier l'utilisateur pour l'associer à
-* $ semanage login -a -s user_u pingservice
-
+* Modifier l'utilisateur pour l'associer au service:
+<pre class="console">$ semanage login -a -s user_u pingservice</pre>
 ---
 # Lab9 - Pour aller plus loin...
 <div class="timer">30' <img src="img/chronometer.png" height="50px"/></div>

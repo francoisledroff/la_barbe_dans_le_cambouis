@@ -211,10 +211,26 @@ if ( System.getSecurityManager() == null )
 * Exo Avancé: implémenter  checkPermission pour n'autoriser que les accès aux propriétés nécessaires
 
 ---
-# Lab7 - Approche alternative: SELinux
+# Lab7 - Aller plus loin... SELinux
 
-* SELinux en quelques mots...
-* TODO:
+* SELinux en quelques mots... (<a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index">Docs</a>)
+.center[![](img/selinux-arch.png)]
+
+* Tutorial SELinux (<a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts">Part 1</a> et <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-2-files-and-processes">Part 2</a>)
+
+* Objectif: Créer un utilisateur 'pingservice' appartenant au group 'microservices'
+confiner à /ping (volume monté, mappé sur la racine du projet)
+
+---
+# Lab7 -  Aller plus loin... SELinux
+
+* Modifier l'utilisateur pour l'associer à
+* $ semanage login -a -s user_u pingservice
+
+---
+# Lab8 - Base de données
+
+* TODO
 
 ---
 # Lab9 - Pour aller plus loin...

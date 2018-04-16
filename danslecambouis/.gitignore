@@ -1,6 +1,9 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
+### francois's secret
+application-secret-francois.properties
+
 ### STS ###
 .apt_generated
 .classpath

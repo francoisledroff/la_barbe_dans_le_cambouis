@@ -16,6 +16,7 @@
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
       .big-list { font-size:200%; }
       .bigger-list { font-size: 280%; }
+      .timer { text-align:right; font-style: italic; font-size: 200%; height: 50px;      }
     </style>
   </head>
   <body>
@@ -49,13 +50,13 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 ---
 # Prérequis
 
-* Java - JDK installé, son IDE préféré, et maven
+* Java - JDK installé, son IDE préféré, et Maven (Java 8 Oracle ou OpenJDK)
 * Docker - docker et docker-compose installé, plus la 'registry' suivante:
 * TODO
 * Systèmes d'exploitation:
 * Linux: Desactiver SELinux
 * MacOS: Demerdez vous, bande hipster
-* Windows: Not an OS, réinstaller un Linux
+* Windows: Merci d'installer un vrai OS
 
 ---
 
@@ -66,7 +67,7 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 ---
 
 # Lab1 - Construire et démarrer le micro -service
-
+<div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 * TODO: Spring Boot en qql mots
 * TODO: la app en qql mots
 * git clone from... (tag!)
@@ -77,13 +78,15 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 * $ mvn spring-boot:run
 * tester avec $ curl http://localhost:9080/ping
 
-Exercice supplémentaire: TODO
+Pour aller plus loin...:
+* Modifier '/ping' pour accepter un paramètre (hostname) et exécuter un 'ping' sur le nom de domaine fourni en argument
+* retourner le temps de réponse du premier ping ("[hostname]: 20ms").
 
 ---
 
 # Lab2 - Démarrer Keycloak
-
-* Keycloak en qql mots
+<div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
+* TODO: Keycloak en qql mots
 * docker-compose -f src/main/docker/keycloak up
 * vérifier en vous connectant sur http://(ip-keycloak)/
 * cred: admin/admin
@@ -93,6 +96,7 @@ Exercice supplémentaire: TODO
 ---
 # Lab2 - Définir de notre royaume de sécurité
 
+* TODO: dessin représentant le royaume de sécurité
 * capture d'écran FLD
 
 ---
@@ -106,22 +110,24 @@ Exercice supplémentaire: TODO
 
 * git clone ... / tag
 * modifier la configuration fournises dans application.properties pour fonctionner avec votre instance keycloak
+* vérifier que l'accès au service /account requiert une authentification et que /ping reste accessible
+* sur la partie admin de Keycloak invalider la session, de l'utilisateur utilisé et tester à nouveau l'accès à /account
 
-* Pour les plus avancés... Utiliser Spring Security, plutôt que le fichier application.properties pour intégrer Keycloak.
+Pour aller plus loin...
+* TODO
 
 ---
 # Lab3 - Mise en place de Swagger
+<div class="timer">10' <img src="img/chronometer.png" height="50px"/></div>
+* Mettre en place d'une documentation en ligne pour notre API Rest avec <a href="https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/">Swagger</a>
+* Tester l'accès et le bon fonctionnement à la documentation: /swagger-ui.html
 
-* recopier les instructions du README ici?
-
-### swagger
-
-Explore our API documentation at
-* browse to http://localhost:9091/swagger-ui.html
+Pour aller plus loin...
+TODO
 
 ---
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
-
+<div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
 * $ docker -f src/main/docker/nginx.yml up
 * modifier la configuration fournises pour rediriger proprement vers votre service:
@@ -130,13 +136,16 @@ Explore our API documentation at
 * ajouter une redirection pour aussi "masquer" keycloak derrière ce proxy
 * modifier en conséquence la configuration de votre service
 * et celle de Keycloak
-* interdiser les requêtes POST, DELETE, HEAD et PUT en direction de /ping
-* de la même manière, limiter les requêtes vers Swagger au strict minimum
-* configurer nginx pour refuser les requêtes vers /ping contenant des paramètres
-* configurer nginx pour refuser les requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes.
+* interdir les requêtes POST, DELETE, HEAD et PUT en direction de /ping
+* configurer nginx pour nettoyer les requêtes vers /ping en retirant tout paramètres
+
+Pour aller plus loin...
+* Limiter les requêtes vers Swagger au strict minimum requis:
+*     n'autoriser requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes...
 
 ---
 # Lab5 - Mise en place du chiffrement SSL devant /ping et swagger
+<div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
 
 * git ... (tag)
 * corriger la configuration fourni
@@ -145,10 +154,17 @@ Explore our API documentation at
 * tester que /ping and /account sont toujours accessible via https
 * incident: revoquer le certificat et le remplacer par un nouveau
 
-TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
+* Documentation pour la <a href=" https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7">génération des certificats et clés nécessaires</a>
+
+---
+# Pause
+<div class="timer">10' <img src="img/chronometer.png" height="50px"/></div>
+
+(ou continuer à geeker, bande de nerds)
 
 ---
 # Lab6 - Intégration avec Spring Security
+<div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 
 * Frameworking your way out of security...
 
@@ -195,7 +211,7 @@ TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-sign
 
 ---
 # Lab7 - Base de données
-
+<div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
 TODO:
 * mise en place de MongoDB
 * connexion sécurisée (SSL)
@@ -210,10 +226,12 @@ TODO:
 
 ---
 # Lab8 - Le "Security Manager" (par configuration)
+<div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
 * Démarrer votre service en activant le système manager (sans configuration, "deny all"):
 *   $ java ... -Djava.security.manager -Djava.security.policy=file:///no.policy
 * Note: si le fichier no.policy n'existe pas (ou est vide), aucune autorisation donnée à l'applicatif!!!
+
 * Avec Spring Boot:
 .center[![Java Security Manager + Spring Boot](img/springboot-with-secman.png)]
 
@@ -232,6 +250,7 @@ grant {
 };
 </code>
 </pre>
+
 ---
 # Lab8 - Le "Security Manager" (version programmatique)
 
@@ -259,7 +278,8 @@ if ( System.getSecurityManager() == null )
 
 * Ajouter les méthodes nécessaires pour autoriser l'accès à la base de données
 
-* Exo Avancé: implémenter  checkPermission pour n'autoriser que les accès aux propriétés nécessaires
+Pour aller plus loin...
+- implémenter checkPermission de manière à n'autoriser que les accès aux propriétés nécessaires
 
 ---
 # Lab8 - Aller plus loin... SELinux
@@ -280,6 +300,7 @@ confiner à /ping (volume monté, mappé sur la racine du projet)
 
 ---
 # Lab9 - Pour aller plus loin...
+<div class="timer">30' <img src="img/chronometer.png" height="50px"/></div>
 
 * une attaque peut changer le contenu du fichier de journalisation (valide pour SELinux/SecurityManager)
 * ajout d'un checksum pour assurer que le contenu du fichier est correct

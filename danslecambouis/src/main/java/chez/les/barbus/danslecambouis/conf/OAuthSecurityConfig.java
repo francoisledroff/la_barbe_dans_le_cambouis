@@ -28,7 +28,10 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // @formatter:off
-    http.antMatcher("/**").authorizeRequests().antMatchers("/", "/ping", "/login**", "/webjars/**").permitAll().anyRequest()
+    http.antMatcher("/**").authorizeRequests().antMatchers("/swagger-resources/**",
+        "/swagger-ui.html",
+        "/v2/api-docs",
+        "/", "/ping", "/login**", "/webjars/**").permitAll().anyRequest()
         .authenticated().and().exceptionHandling()
         .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
         .logoutSuccessUrl("/").permitAll().and().csrf().disable()

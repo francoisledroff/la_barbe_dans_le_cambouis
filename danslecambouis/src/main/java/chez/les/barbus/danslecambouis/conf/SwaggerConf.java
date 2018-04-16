@@ -25,8 +25,11 @@ public class SwaggerConf {
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo("La barbe des APIs", "IPAs ou APIs ?", "TheBestOf", "Do What the Fuck you want",
-        new Contact("Francois et Romain", "https://github.com/francoisledroff/la_barbe_dans_le_cambouis", "@francoisledroff"),
+    ApiInfo apiInfo = new ApiInfo("La barbe des APIs", "IPAs ou APIs ?",
+        "TheBestOf", "Do What the Fuck you want",
+        new Contact("Francois et Romain",
+            "https://github.com/francoisledroff/la_barbe_dans_le_cambouis",
+            "@francoisledroff"),
         "WTFPL", "http://www.wtfpl.net/", Collections.emptyList());
     return apiInfo;
   }

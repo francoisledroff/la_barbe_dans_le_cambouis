@@ -16,6 +16,13 @@
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
       .big-list { font-size:200%; }
       .bigger-list { font-size: 280%; }
+      .timer { text-align:right; font-style: italic; font-size: 200%; height: 50px; }
+      .console { font-family:Courier;
+                 color: #CCCCCC;
+                 background: #000000;
+                 border: 3px double #CCCCCC;
+                 padding: 10px;
+      }
     </style>
   </head>
   <body>
@@ -42,19 +49,20 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 * lab4 - mise en place d'un reverse-proxy filtrant
 * lab5 - mise en place du chiffrement SSL
 * lab6 - intégration avec Sprint Security
-* lab7 - protéger le système de l'application avec le Security Manager
-* lab8 - base de données - chiffrement des données persistées et connexion sécurisée
+* lab7 - base de données - chiffrement et connexion sécurisée
+* lab8 - protéger le système de l'application avec le Security Manager et SELinux
 * lab9 - intégrité du fichier du contenu du fichier de journalisation
+
 ---
 # Prérequis
 
-* Java - JDK installé, son IDE préféré, et maven
+* Java - JDK installé, son IDE préféré, et Maven (Java 8 Oracle ou OpenJDK)
 * Docker - docker et docker-compose installé, plus la 'registry' suivante:
 * TODO
 * Systèmes d'exploitation:
 * Linux: Desactiver SELinux
 * MacOS: Demerdez vous, bande hipster
-* Windows: Not an OS, réinstaller un Linux
+* Windows: Merci d'installer un vrai OS
 
 ---
 
@@ -65,33 +73,46 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 ---
 
 # Lab1 - Construire et démarrer le micro -service
-
+<div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 * TODO: Spring Boot en qql mots
 * TODO: la app en qql mots
-* git clone from... (tag!)
-* 'cd' into 'danslecambouis'
-* $ mvnw compile (erreur)
-* implémenter le corps de la méthode 'ping'
-* $ mvn compile
-* $ mvn spring-boot:run
-* tester avec $ curl http://localhost:9080/ping
 
-Exercice supplémentaire: TODO
+<pre class="console">
+$ git clone from... (tag!)
+$ 'cd' into 'danslecambouis'
+$ mvnw compile (erreur)
+</pre>
+* implémenter le corps de la méthode 'ping'
+<pre class="console">
+$ mvn spring-boot:run
+$ curl http://localhost:9080/ping
+</pre>
+
+Pour aller plus loin...:
+* Modifier '/ping' pour accepter un paramètre (hostname) et exécuter un 'ping' sur le nom de domaine fourni en argument
+* retourner le temps de réponse du premier ping ("[hostname]: 20ms").
 
 ---
 
 # Lab2 - Démarrer Keycloak
-
-* Keycloak en qql mots
-* docker-compose -f src/main/docker/keycloak up
+<div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
+* TODO: Keycloak en qql mots
+* Démarrer l'instance Keycloak:
+<pre class="console">
+docker-compose -f src/main/docker/keycloak up
+</pre>
 * vérifier en vous connectant sur http://(ip-keycloak)/
-* cred: admin/admin
+* identificant de connexion admin/admin
 
-* retrouver l'IP attribué par Docker: $ docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
+* Astuce: retrouver l'IP attribué par Docker:
+<pre class="console">$ docker ps -q \
+    | xargs docker inspect --format '{{ .Id }} \
+    - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'</pre>
 
 ---
 # Lab2 - Définir de notre royaume de sécurité
 
+* TODO: dessin représentant le royaume de sécurité
 * capture d'écran FLD
 
 ---
@@ -105,32 +126,43 @@ Exercice supplémentaire: TODO
 
 * git clone ... / tag
 * modifier la configuration fournises dans application.properties pour fonctionner avec votre instance keycloak
+* vérifier que l'accès au service /account requiert une authentification et que /ping reste accessible
+* sur la partie admin de Keycloak invalider la session, de l'utilisateur utilisé et tester à nouveau l'accès à /account
 
-* Pour les plus avancés... Utiliser Spring Security, plutôt que le fichier application.properties pour intégrer Keycloak.
+Pour aller plus loin...
+* TODO
 
 ---
 # Lab3 - Mise en place de Swagger
+<div class="timer">10' <img src="img/chronometer.png" height="50px"/></div>
+* Mettre en place d'une documentation en ligne pour notre API Rest avec <a href="https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/">Swagger</a>
+* Tester l'accès et le bon fonctionnement à la documentation: /swagger-ui.html
 
-* recopier les instructions du README ici?
+Pour aller plus loin...
+TODO
 
 ---
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
+<div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
-
-* $ docker -f src/main/docker/nginx.yml up
+* Démarrer l'instance nginx:
+<pre class="console">$ docker -f src/main/docker/nginx.yml up</pre>
 * modifier la configuration fournises pour rediriger proprement vers votre service:
 * (editer le fichier src/main/docker/nginx-config/basic-rp.conf)
 * tester avec curl http://(ip-du-conteneur)/ping
 * ajouter une redirection pour aussi "masquer" keycloak derrière ce proxy
 * modifier en conséquence la configuration de votre service
 * et celle de Keycloak
-* interdiser les requêtes POST, DELETE, HEAD et PUT en direction de /ping
-* de la même manière, limiter les requêtes vers Swagger au strict minimum
-* configurer nginx pour refuser les requêtes vers /ping contenant des paramètres
-* configurer nginx pour refuser les requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes.
+* interdir les requêtes POST, DELETE, HEAD et PUT en direction de /ping
+* configurer nginx pour nettoyer les requêtes vers /ping en retirant tout paramètres
+
+Pour aller plus loin...
+* Limiter les requêtes vers Swagger au strict minimum requis:
+*     n'autoriser requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes...
 
 ---
 # Lab5 - Mise en place du chiffrement SSL devant /ping et swagger
+<div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
 
 * git ... (tag)
 * corriger la configuration fourni
@@ -139,16 +171,85 @@ Exercice supplémentaire: TODO
 * tester que /ping and /account sont toujours accessible via https
 * incident: revoquer le certificat et le remplacer par un nouveau
 
-TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
+* Documentation pour la <a href=" https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7">génération des certificats et clés nécessaires</a>
 
 ---
-# Lab6 - Intégration avec Sprint Security
+# Pause
+<div class="timer">10' <img src="img/chronometer.png" height="50px"/></div>
+
+(ou continuer à geeker, bande de nerds)
+
+---
+# Lab6 - Intégration avec Spring Security
+<div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 
 * Frameworking your way out of security...
 
 .center[![Spring Security Logo](img/spring-security.logo.png)]
 
 * (... because we can't gradle the shit out of it)
+
+---
+# Lab6 - Mise en place de Spring Security
+
+* ajouter Spring Security aux dépendances du projet
+* ajouter la configuration d'un connecteur Keycloak pour Spring Security
+* migrer la configuration de KeyCloak du application.properties dans une classe qui étend KeycloakWebSecurityConfigurerAdapter
+* Tester et vérifier que l'intégration avec Keycloak fonctionne toujours sans encombre
+
+* Ref: <a href="https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/">Spring Boot with Keycloak</a>
+
+---
+# Lab6 - CSRF et Cache control
+
+* Vérifier le bon fonctionnement de l'API '/stuff' fournise (git clone [tag])
+* Mettre en place la protection contre le <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html">CSRF</a> et la <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control">gestion du cache</a> à l'aide de Spring Security
+* Vérifier le bon fonctionnement de ces configurations à l'aide des requêtes curl suivante:
+<pre class="console">
+    curl -v http://localhost:9091/stuff
+    curl -v -H "Content-Type: application/json" \
+        -X POST -d '{"title":"un titre","text":"du texte"}' \
+        http://localhost:9091/stuff
+    curl -v -H "Content-Type: application/json" \
+        -X DELETE \
+        -d '{"title":"un titre","text":"du texte"}' \
+        http://localhost:9091/stuff
+</pre>
+
+---
+# Lab6 - CSRF et Cache control
+
+* Vérifier que les messages de retour sont cohérent avec les attentes:
+<pre class="console">
+{"timestamp":1523630530507,"status":403,
+"error":"Forbidden", "message":"Could not
+verify the provided CSRF token because your
+session was not found.","path":"/stuff"}
+</pre>
+
+---
+# Lab6 - CSRF et Cache control
+
+* Vérifier la présence des nombreux entêtes de sécurité ajoutés par Spring Security:
+<pre class="console">
+Cache-Control: no-cache, no-store,
+    max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Content-Type-Options: nosniff
+Strict-Transport-Security:
+    max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+</pre>
+
+---
+# Lab7 - Base de données
+<div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
+TODO:
+* mise en place de MongoDB
+* connexion sécurisée (SSL)
+* chiffrement des données
 
 ---
 # Lab7 - Le "Security Manager" (par configuration)
@@ -158,19 +259,27 @@ TODO: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-sign
 .center[![Java Security Manager Architecture](img/security-manager.png)]
 
 ---
-# Lab7 - Le "Security Manager" (par configuration)
+# Lab8 - Le "Security Manager" (par configuration)
+<div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
-* Démarrer votre service en activant le système manager (sans configuration, "deny all"):
-*   $ java ... -Djava.security.manager -Djava.security.policy=file:///no.policy
+* Démarrer votre service en activant le système manager (sans configuration, "deny all")
+<pre class="console"> $ java ... \
+    -Djava.security.manager \
+    -Djava.security.policy=file:///no.policy
+</pre>
 * Note: si le fichier no.policy n'existe pas (ou est vide), aucune autorisation donnée à l'applicatif!!!
+
+---
+# Lab8 - Le "Security Manager" (par configuration)
+
 * Avec Spring Boot:
 .center[![Java Security Manager + Spring Boot](img/springboot-with-secman.png)]
 
 ---
-# Lab7 - Le "Security Manager" (par configuration)
+# Lab8 - Le "Security Manager" (par configuration)
 
 * Modifier la configuration suivante pour permettre le démarrage du service avec le securité manager
-<pre>
+<pre class="console">
 <code>
 grant {
 &nbsp;&nbsp;&nbsp;permission java.util.PropertyPermission  "*", "read, write";
@@ -181,8 +290,9 @@ grant {
 };
 </code>
 </pre>
+
 ---
-# Lab7 - Le "Security Manager" (version programmatique)
+# Lab8 - Le "Security Manager" (version programmatique)
 
 * "Ca marche pas!" et ça peut demander <a href="http://blog.sevagas.com/?Enable-securitymanager-for-Spring-and-Hibernate">beaucoup de boulot</a>.
 * C'est l'enfer, hein? Bon faisons autrement...
@@ -204,20 +314,32 @@ if ( System.getSecurityManager() == null )
 * Surcharger la méthode checkAccept pour autoriser le démarrage du serveur
 
 ---
-# Lab7 - Le "Sécurity Manager" (version programmatique)
+# Lab8 - Le "Sécurity Manager" (version programmatique)
 
 * Ajouter les méthodes nécessaires pour autoriser l'accès à la base de données
 
-* Exo Avancé: implémenter  checkPermission pour n'autoriser que les accès aux propriétés nécessaires
+Pour aller plus loin...
+- implémenter checkPermission de manière à n'autoriser que les accès aux propriétés nécessaires
 
 ---
-# Lab7 - Approche alternative: SELinux
+# Lab8 - Aller plus loin... SELinux
 
-* SELinux en quelques mots...
-* TODO:
+* SELinux en quelques mots... (<a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index">Docs</a>)
+.center[![](img/selinux-arch.png)]
 
+* Tutorial SELinux (<a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts">Part 1</a> et <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-2-files-and-processes">Part 2</a>)
+
+* Objectif: Créer un utilisateur 'pingservice' appartenant au group 'microservices'
+confiner à /ping (volume monté, mappé sur la racine du projet)
+
+---
+# Lab8 -  Aller plus loin... SELinux
+
+* Modifier l'utilisateur pour l'associer au service:
+<pre class="console">$ semanage login -a -s user_u pingservice</pre>
 ---
 # Lab9 - Pour aller plus loin...
+<div class="timer">30' <img src="img/chronometer.png" height="50px"/></div>
 
 * une attaque peut changer le contenu du fichier de journalisation (valide pour SELinux/SecurityManager)
 * ajout d'un checksum pour assurer que le contenu du fichier est correct

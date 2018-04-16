@@ -28,15 +28,15 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     // @formatter:off
-    http.antMatcher("/**").authorizeRequests().antMatchers("/", "/ping", "/login**", "/webjars/**")
-        .permitAll().anyRequest()
+    http.antMatcher("/**").authorizeRequests().antMatchers("/", "/ping", "/login**", "/webjars/**").permitAll().anyRequest()
         .authenticated().and().exceptionHandling()
         .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
-        .logoutSuccessUrl("/").permitAll().and().csrf()
-        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+        .logoutSuccessUrl("/").permitAll().and().csrf().disable()
+        //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
         .addFilterBefore(oAuthClientConf.getSsoFilter(), BasicAuthenticationFilter.class);
     // @formatter:on
   }
+
 
   @Configuration
   @EnableResourceServer
@@ -44,8 +44,11 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
       // @formatter:off
-      http.antMatcher("/account/me").authorizeRequests().anyRequest().authenticated();
+      http.csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/account/me").authenticated();
       // @formatter:on
     }
   }

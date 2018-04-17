@@ -106,11 +106,12 @@ Fonctionalités:
 * Fournit des POM «starter» orientées pour simplifier votre configuration Maven
 * Aucune génération de code et aucune exigence pour la configuration XML
 
+`https://projects.spring.io/spring-boot/`
+
 ---
 
 # Lab1 - Construire et démarrer le micro -service
 <div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
-* TODO: Spring Boot en qql mots
 * TODO: la app en qql mots
 
 <pre class="console">
@@ -125,8 +126,30 @@ $ curl http://localhost:9080/ping
 </pre>
 
 Pour aller plus loin...:
-* Modifier '/ping' pour accepter un paramètre (hostname) et exécuter un 'ping' sur le nom de domaine fourni en argument
-* retourner le temps de réponse du premier ping ("[hostname]: 20ms").
+* Modifier '/ping' pour accepter un paramètre (hostname) 
+  * et exécuter un 'ping' (OS) sur le nom de domaine fourni en argument
+  * et retourner le temps de réponse du premier ping ("[hostname]: 20ms").
+
+---
+
+<div class="upper-right-corner"><img src="img/keycloak.png" height="80px"/></div>
+
+# Keycloak
+
+Solution Open Source de gestion de l'identité et d'accès 
+Plus besoin de gérer le stockage des utilisateurs ou l'authentification des utilisateurs. 
+
+* SSO Authentification unique: Connectez-vous une fois pour plusieurs applications
+* Protocoles standards: OpenID Connect, OAuth 2.0 et SAML 2.0
+* LDAP et Active Directory: Connectez-vous aux répertoires d'utilisateurs existants
+* Connexion sociale
+* Courtage d'identité: OpenID Connect ou les fournisseurs d'identité SAML 2.0
+* Clustering
+* Thèmes: Personnalisez l'aspect et la convivialité
+* Extensible: codez !
+* Mot de passe: Personnalisez les règles de mot de passe
+
+`https://www.keycloak.org/`
 
 ---
 

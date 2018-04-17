@@ -18,17 +18,18 @@ c'est le titre de notre prochain **Hands-on-lab à [Devoxx France 2018](https://
 
 ###  Prérequis ( `Venez ! mais venez préparé !` )
 
-* Systèmes d'exploitation
+* Systèmes d'exploitation:
   * Linux: bien, désactiver `SELinux`
   * MacOS: Démerdez vous, bande d'hipster
   * Windows: Merci d'installer un vrai OS 
     * ou a minima faites en sorte d'avoir un `bash (unix shell)` à disposition
 
-* Installez Java - JDK 8 (nous avons testé le lab avec la version `1.8.0_162-b12`), 
-* Venez avec votre IDE/`vi` préféré, peu nous importe ;)
-* Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9`)
-* Installez docker (nous avons testé la version `18.04.0-ce-rc2` )
-* Installez docker-compose (nous avons testé la version `1.20.1`)
+* Outillage:
+  * Installez Java - JDK 8 (nous avons testé le lab avec la version `1.8.0_162-b12`)
+  * Venez avec votre IDE/`vi` préféré, peu nous importe ;)
+  * Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9`)
+  * Installez docker (nous avons testé la version `18.04.0-ce-rc2` )
+  * Installez docker-compose (nous avons testé la version `1.20.1`)
 
 Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du palais des congrès, lancer les commandes suivantes à l'avance:
 

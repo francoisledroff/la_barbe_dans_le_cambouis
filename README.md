@@ -15,4 +15,27 @@ c'est le titre de notre prochain **Hands-on-lab à [Devoxx France 2018](https://
       Ce Hands-on-Lab reprendra les éléments évoqués durant la conférence donnée à Devoxx en 2015 et l'article paru dans Linux Mag en 2017 intitulés `Chez les Barbus – Java & Sécurité`.
       
       
-**Vous trouverez ici prochainement tout le code et les binaires à télécharger dans le cadre de ce Hands-on-lab**
+
+###  Prérequis ( `Venez ! mais venez préparé !` )
+
+* Systèmes d'exploitation
+  * Linux: bien, désactiver `SELinux`
+  * MacOS: Démerdez vous, bande d'hipster
+  * Windows: Merci d'installer un vrai OS 
+    * ou a minima faites en sorte d'avoir un `bash (unix shell)` à disposition
+
+* Installez Java - JDK 8 (nous avons testé le lab avec la version `1.8.0_162-b12`), 
+* Venez avec votre IDE/`vi` préféré, peu nous importe ;)
+* Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9`)
+* Installez docker (nous avons testé la version `18.04.0-ce-rc2` )
+* Installez docker-compose (nous avons testé la version `1.20.1`)
+
+Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du palais des congrès, lancer les commandes suivantes à l'avance:
+
+  * dans votre terminal clonez ce repo: `git clone https://github.com/francoisledroff/la_barbe_dans_le_cambouis.git`
+  * puis `cd la_barbe_dans_le_cambouis` 
+  * démarrez notre container keycloak: `docker-compose -f src/main/docker/keycloak.yml up`
+  * construisez notre nginx: `src/main/docker/build-docker-image.sh`
+  * construisez notre container mongo : `docker build -t mongo src/main/docker/mongo/`
+  * construisez notre bonne vieille application Java (et télecharger internet pour satisfaire maven): `mvnw clean install`
+

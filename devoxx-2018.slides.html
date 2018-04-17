@@ -13,7 +13,7 @@
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
       }
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code, .remark-inline-code { font-family:Courier; background-color: #FFFFE0}
       .big-list { font-size:200%; }
       .bigger-list { font-size: 280%; }
       .timer { text-align:right; font-style: italic; font-size: 200%; height: 50px; }
@@ -30,19 +30,19 @@
 
 class: center, middle
 
-# La Barbe dans le cambouis : Sécurisons une bonne vieille application Java "Entreprise"
+## La Barbe dans le cambouis 
+# Sécurisons une bonne vieille application Java "Entreprise"
 
-François Le Droff - injecte plein de DRMs sur vos machines pour Adobe
+`François Le Droff` - un des plombiers derrière `adobe.io`
 
-Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
+`Romain Pelisse` - corrige des bogues sur les APIs de nos grand parents pour `RedHat`
 
 ---
 
 # Agenda
 
-(genre, on sait ce qu'on fait...)
 
-* prérequis
+* Prérequis
 * lab1 - notre application ("build and deploy")
 * lab2 - mise en place d'une solution d'identity
 * lab3 - mise en place et sécurisation de Swagger
@@ -56,13 +56,31 @@ Romain Pelisse - fix des bogues sur les APIs de nos grand parents pour Red Hat
 ---
 # Prérequis
 
-* Java - JDK installé, son IDE préféré, et Maven (Java 8 Oracle ou OpenJDK)
-* Docker - docker et docker-compose installé, plus la 'registry' suivante:
-* TODO
-* Systèmes d'exploitation:
-* Linux: Desactiver SELinux
-* MacOS: Demerdez vous, bande hipster
-* Windows: Merci d'installer un vrai OS
+* Systèmes d'exploitation
+  * Linux: bien, désactiver `SELinux`
+  * MacOS: Démerdez vous, bande d'hipster
+  * Windows: Merci d'installer un vrai OS 
+    * ou a minima faites en sorte d'avoir un `bash (unix shell)` à disposition
+
+* Installez Java - JDK 8 (nous avons testé le lab avec la `1.8.0_162-b12`) 
+* Venez avec votre IDE/`vi` préféré, peu nous importe
+* Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9`)
+* Installez docker (nous avons testé la version `18.04.0-ce-rc2` )
+* Installez docker-compose (nous avons testé la version `1.20.1`)
+
+
+---
+
+# Prérequis 
+
+Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du palais des congrès, lancer les commandes suivantes à l'avance:
+
+  * dans votre terminal clonez ce repo: `git clone https://github.com/francoisledroff/la_barbe_dans_le_cambouis.git`
+  * puis `cd la_barbe_dans_le_cambouis` 
+  * démarrez notre container keycloak: `docker-compose -f src/main/docker/keycloak.yml up`
+  * construisez notre nginx: `src/main/docker/build-docker-image.sh`
+  * construisez notre container mongo : `docker build -t mongo src/main/docker/mongo/`
+  * construisez notre bonne vieille application Java (et télecharger internet pour satisfaire maven): `mvnw clean install`
 
 ---
 
@@ -145,8 +163,9 @@ TODO
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
 <div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
+* (Prérequis) Construisez le container nginx : `src/main/docker/build-docker-image.sh 
 * Démarrer l'instance nginx:
-<pre class="console">$ docker -f src/main/docker/nginx.yml up</pre>
+<pre class="console">$ docker-compose -f src/main/docker/nginx.yml up</pre>
 * modifier la configuration fournises pour rediriger proprement vers votre service:
 * (editer le fichier src/main/docker/nginx-config/basic-rp.conf)
 * tester avec curl http://(ip-du-conteneur)/ping

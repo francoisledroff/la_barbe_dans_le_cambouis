@@ -1,10 +1,18 @@
 
 
-## Test Drive
+## Prerequisite
 
-* start keycloak docker `docker-compose -f src/main/docker/keycloak.yml up`
-* start this from your IDE using `DanslecambouisApplication`
-* or cli : `mvn spring-boot:run`
+* start keycloak docker: `docker-compose -f src/main/docker/keycloak.yml up`
+* build our mongo docker container: `docker build -t mongo src/main/docker/mongo/`
+  * test it by running it : `cd src/main/docker/mongo/` and then once there: `./run.sh`
+* build our app once (to download the various maven depencies): `mvnw clean install`
+
+
+## Test Drive
+Once the above is done
+
+* start the app : `mvnw clean install spring-boot:run`
+  * or run/debug `DanslecambouisApplication` from your IDE  
 
 
 ### ping (opened)
@@ -82,8 +90,20 @@ to export the keycloak realm and users
 * https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html
 * https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control
 
+* webinar https://spring.io/blog/2014/01/21/webinar-replay-spring-security-3-2
+
 ###### oauth
 
+https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
 https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
 https://spring.io/guides/tutorials/spring-boot-oauth2/
 https://github.com/spring-guides/tut-spring-boot-oauth2/blob/master/github/src/main/java/com/example/SocialApplication.java
+
+### mongodb
+
+https://www.digitalocean.com/community/tutorials/how-to-run-a-secure-mongodb-server-with-openvpn-and-docker-on-ubuntu-16-04
+
+### useful docker commands
+
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)

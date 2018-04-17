@@ -24,6 +24,20 @@
                  border: 3px double #CCCCCC;
                  padding: 10px;
       }
+      .source-code {
+          font-family: Courier;
+          color: black;
+          background: #ffffcc;
+          border: 1px black;
+      }
+      .aller-plus-loin {
+          background: #EAEDED;
+          border: 2px solid black;
+          padding: 15px;
+      }
+      .aller-plus-loin-titre {
+          font-weight : bold;
+      }
     </style>
   </head>
   <body>
@@ -31,7 +45,7 @@
 
 class: center, middle
 
-## La Barbe dans le cambouis 
+## La Barbe dans le cambouis
 # Sécurisons une bonne vieille application Java "Entreprise"
 
 `François Le Droff` - un des plombiers derrière `adobe.io`
@@ -58,28 +72,28 @@ class: center, middle
 # Prérequis
 
 * Systèmes d'exploitation:
-  * Linux: bien, désactiver `SELinux`
+  * Linux: bien sûr, désactiver `SELinux`
   * MacOS: Démerdez vous, bande d'hipster
-  * Windows: Merci d'installer un vrai OS 
+  * Windows: Merci d'installer un vrai OS
     * ou a minima faites en sorte d'avoir un `bash (unix shell)` à disposition
 
 * Outillage:
-  * Installez Java - JDK 8 (nous avons testé le lab avec la version `1.8.0_162-b12`)
+  * Installez Java - JDK 8 (nous avons testé le lab avec la version `1.8.0_162-b12` et `openjdk version "1.8.0_161`)
   * Venez avec votre IDE/`vi` préféré, peu nous importe ;)
-  * Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9`)
-  * Installez docker (nous avons testé la version `18.04.0-ce-rc2` )
-  * Installez docker-compose (nous avons testé la version `1.20.1`)
+  * Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9` et `Apache Maven 3.5.0 (Red Hat 3.5.0-6)`)
+  * Installez docker (nous avons testé la version `18.04.0-ce-rc2` et `1.13.1, build caba767-unsupported`)
+  * Installez docker-compose (nous avons testé la version `1.20.1` et `1.17.1, build 6d101fb`)
 
 
 ---
 
-# Prérequis 
+# Prérequis
 
 Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du palais des congrès, lancer les commandes suivantes à l'avance:
 
   * Clonez notre repo git
     * `git clone https://github.com/francoisledroff/la_barbe_dans_le_cambouis.git`
-    * `cd la_barbe_dans_le_cambouis` 
+    * `cd la_barbe_dans_le_cambouis`
   * Un peu de Docker ensuite:
     * `docker-compose -f src/main/docker/keycloak.yml up`
     * `src/main/docker/build-docker-image.sh`
@@ -106,38 +120,43 @@ Fonctionalités:
 * Fournit des POM «starter» orientées pour simplifier votre configuration Maven
 * Aucune génération de code et aucune exigence pour la configuration XML
 
-`https://projects.spring.io/spring-boot/`
+<center><a href=">https://projects.spring.io/spring-boot/">https://projects.spring.io/spring-boot/</a></center>
 
 ---
 
 # Lab1 - Construire et démarrer le micro -service
 <div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
-* TODO: la app en qql mots
-
 <pre class="console">
 $ git clone from... (tag!)
 $ 'cd' into 'danslecambouis'
 $ mvnw compile (erreur)
 </pre>
-* implémenter le corps de la méthode 'ping'
+
+* implémenter le corps de la méthode 'ping' puis exécuter et tester le service
+
 <pre class="console">
 $ mvn spring-boot:run
 $ curl http://localhost:9080/ping
 </pre>
+---
+# Lab1 - Construire et démarrer le micro -service
 
-Pour aller plus loin...:
-* Modifier '/ping' pour accepter un paramètre (hostname) 
-  * et exécuter un 'ping' (OS) sur le nom de domaine fourni en argument
-  * et retourner le temps de réponse du premier ping ("[hostname]: 20ms").
-
+<div class="aller-plus-loin">
+<span class="aller-plus-loin-titre">Pour aller plus loin...</span>
+<ul>
+  <li>Modifier '/ping' pour accepter un paramètre (hostname)</li>
+  <li>et exécuter un 'ping' (OS) sur le nom de domaine fourni en argument</li>
+  <li>et retourner le temps de réponse du premier ping ("[hostname]: 20ms").</li>
+</ul>
+</div>
 ---
 
 <div class="upper-right-corner"><img src="img/keycloak.png" height="80px"/></div>
 
 # Keycloak
 
-Solution Open Source de gestion de l'identité et d'accès 
-Plus besoin de gérer le stockage des utilisateurs ou l'authentification des utilisateurs. 
+Solution Open Source de gestion de l'identité et d'accès
+Plus besoin de gérer le stockage des utilisateurs ou l'authentification des utilisateurs.
 
 * SSO Authentification unique: Connectez-vous une fois pour plusieurs applications
 * Protocoles standards: OpenID Connect, OAuth 2.0 et SAML 2.0
@@ -149,7 +168,7 @@ Plus besoin de gérer le stockage des utilisateurs ou l'authentification des uti
 * Extensible: codez !
 * Mot de passe: Personnalisez les règles de mot de passe
 
-`https://www.keycloak.org/`
+<center><a href="https://www.keycloak.org/">https://www.keycloak.org/</a></center>
 
 ---
 
@@ -188,38 +207,54 @@ docker-compose -f src/main/docker/keycloak up
 * vérifier que l'accès au service /account requiert une authentification et que /ping reste accessible
 * sur la partie admin de Keycloak invalider la session, de l'utilisateur utilisé et tester à nouveau l'accès à /account
 
-Pour aller plus loin...
-* TODO
+<div class="aller-plus-loin">
+<span class="aller-plus-loin-titre">Pour aller plus loin...</span>
+<ul>
+  <li>TODO</li>
+</ul>
+</div>
 
 ---
 # Lab3 - Mise en place de Swagger
 <div class="timer">10' <img src="img/chronometer.png" height="50px"/></div>
+
 * Mettre en place d'une documentation en ligne pour notre API Rest avec <a href="https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/">Swagger</a>
 * Tester l'accès et le bon fonctionnement à la documentation: /swagger-ui.html
 
-Pour aller plus loin...
-TODO
+<div class="aller-plus-loin">
+<span class="aller-plus-loin-titre">Pour aller plus loin...</span>
+<ul>
+  <li>TODO</li>
+</ul>
+</div>
 
 ---
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
 <div class="timer">25' <img src="img/chronometer.png" height="50px"/></div>
 
-* (Prérequis) Construisez le container nginx : `src/main/docker/build-docker-image.sh 
+* Prérequis: Construisez le container nginx :
+<pre class="console">./src/main/docker/build-docker-image.sh</pre>
 * Démarrer l'instance nginx:
 <pre class="console">$ docker-compose -f src/main/docker/nginx.yml up</pre>
-* modifier la configuration fournises pour rediriger proprement vers votre service:
-* (editer le fichier src/main/docker/nginx-config/basic-rp.conf)
-* tester avec curl http://(ip-du-conteneur)/ping
-* ajouter une redirection pour aussi "masquer" keycloak derrière ce proxy
-* modifier en conséquence la configuration de votre service
-* et celle de Keycloak
-* interdir les requêtes POST, DELETE, HEAD et PUT en direction de /ping
-* configurer nginx pour nettoyer les requêtes vers /ping en retirant tout paramètres
+* Modifier la configuration fournises pour rediriger proprement vers votre service
+(editer le fichier src/main/docker/nginx-config/basic-rp.conf)
 
-Pour aller plus loin...
-* Limiter les requêtes vers Swagger au strict minimum requis:
-*     n'autoriser requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes...
+---
+# Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx
 
+* Tester avec curl http://(ip-du-conteneur)/ping
+* Ajouter une redirection pour aussi "masquer" keycloak derrière ce proxy
+* Modifier en conséquence la configuration de votre service et celle de Keycloak
+* Interdir les requêtes POST, DELETE, HEAD et PUT en direction de /ping
+* Configurer nginx pour nettoyer les requêtes vers /ping en retirant tout paramètres
+
+<div class="aller-plus-loin">
+<span class="aller-plus-loin-titre">Pour aller plus loin...</span>
+<ul>
+  <li>Limiter les requêtes vers Swagger au strict minimum requis:</li>
+  <li>n'autoriser requêtes vers /swagger-ui* à part /swagger-ui.html, n'autoriser que les GET, retirer les arguments des requêtes...</li>
+</ul>
+</div>
 ---
 # Lab5 - Mise en place du chiffrement SSL devant /ping et swagger
 <div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
@@ -251,10 +286,11 @@ Pour aller plus loin...
 
 ---
 # Lab6 - Mise en place de Spring Security
-
-* ajouter Spring Security aux dépendances du projet
-* ajouter la configuration d'un connecteur Keycloak pour Spring Security
-* migrer la configuration de KeyCloak du application.properties dans une classe qui étend KeycloakWebSecurityConfigurerAdapter
+* Ajouter Spring Security aux dépendances du projet
+.center[![Spring Security Deps](img/springboot-security.png)]
+* Ajouter la configuration d'un connecteur Keycloak pour Spring Security
+.center[![Keycloak Adapter](img/keycloak-adapter-bom.png)]
+* Migrer la configuration de KeyCloak du <span class="source-code">application.properties</span> dans une classe qui étend KeycloakWebSecurityConfigurerAdapter
 * Tester et vérifier que l'intégration avec Keycloak fonctionne toujours sans encombre
 
 * Ref: <a href="https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/">Spring Boot with Keycloak</a>
@@ -266,14 +302,14 @@ Pour aller plus loin...
 * Mettre en place la protection contre le <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html">CSRF</a> et la <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control">gestion du cache</a> à l'aide de Spring Security
 * Vérifier le bon fonctionnement de ces configurations à l'aide des requêtes curl suivante:
 <pre class="console">
-    curl -v http://localhost:9091/stuff
-    curl -v -H "Content-Type: application/json" \
-        -X POST -d '{"title":"un titre","text":"du texte"}' \
-        http://localhost:9091/stuff
-    curl -v -H "Content-Type: application/json" \
-        -X DELETE \
-        -d '{"title":"un titre","text":"du texte"}' \
-        http://localhost:9091/stuff
+$ curl -v http://localhost:9091/stuff
+$ curl -v -H "Content-Type: application/json" \
+       -X POST -d '{"title":"un titre","text":"du texte"}' \
+       http://localhost:9091/stuff
+$ curl -v -H "Content-Type: application/json" \
+       -X DELETE \
+       -d '{"title":"un titre","text":"du texte"}' \
+       http://localhost:9091/stuff
 </pre>
 
 ---
@@ -340,38 +376,28 @@ TODO:
 
 * Modifier la configuration suivante pour permettre le démarrage du service avec le securité manager
 <pre class="console">
-<code>
-grant {
+<code>grant {
 &nbsp;&nbsp;&nbsp;permission java.util.PropertyPermission  "*", "read, write";
 &nbsp;&nbsp;&nbsp;permission java.util.PropertyPermission "java.awt.headless", "read";
 &nbsp;&nbsp;&nbsp;permission java.io.FilePermission
 &nbsp;&nbsp;&nbsp;&nbsp;"[path-to]/devoxx-france-lab-2018.git/danslecambouis", "read";
 &nbsp;&nbsp;&nbsp;permission java.lang.reflect.ReflectPermission "*";
-};
-</code>
-</pre>
+};</code></pre>
 
 ---
 # Lab8 - Le "Security Manager" (version programmatique)
 
 * "Ca marche pas!" et ça peut demander <a href="http://blog.sevagas.com/?Enable-securitymanager-for-Spring-and-Hibernate">beaucoup de boulot</a>.
-* C'est l'enfer, hein? Bon faisons autrement...
-* Créer votre propre SecurityManager!
-<pre>
-<code>
-public class PingSecurityManager extends SecurityManager {
-...}
+* C'est l'enfer, hein? Bon faisons autrement... Créeons notre propre SecurityManager!
+<pre class="source-code">
+<code>public class PingSecurityManager extends SecurityManager {...}</code>
 </pre>
-</code>
 * Et injecte le dans votre application:
-<pre>
-<code>
-if ( System.getSecurityManager() == null )
-			System.setSecurityManager(new PingSecurityManager());
-</code>
-</pre>
-* Surcharger les méthodes checkPermission (vide) pour autoriser l'app a accéder aux properties
-* Surcharger la méthode checkAccept pour autoriser le démarrage du serveur
+<pre class="source-code">
+<code>if ( System.getSecurityManager() == null )
+&nbsp;&nbsp;&nbsp;&nbsp;System.setSecurityManager(new PingSecurityManager());</code></pre>
+* Surcharger les méthodes <span class="source-code">checkPermission</span> (vide) pour autoriser l'app a accéder aux propriétés
+* Surcharger la méthode <span class="source-code">checkAccept</span> pour autoriser le démarrage du serveur
 
 ---
 # Lab8 - Le "Sécurity Manager" (version programmatique)
@@ -379,7 +405,7 @@ if ( System.getSecurityManager() == null )
 * Ajouter les méthodes nécessaires pour autoriser l'accès à la base de données
 
 Pour aller plus loin...
-- implémenter checkPermission de manière à n'autoriser que les accès aux propriétés nécessaires
+* implémenter <span class="source-code">checkPermission</span> de manière à n'autoriser que les accès aux propriétés nécessaires
 
 ---
 # Lab8 - Aller plus loin... SELinux
@@ -401,8 +427,10 @@ confiner à /ping (volume monté, mappé sur la racine du projet)
 # Lab9 - Pour aller plus loin...
 <div class="timer">30' <img src="img/chronometer.png" height="50px"/></div>
 
-* une attaque peut changer le contenu du fichier de journalisation (valide pour SELinux/SecurityManager)
-* ajout d'un checksum pour assurer que le contenu du fichier est correct
+* Implémenter un fichier de journalisation qui loggue chaque appel à '/ping'
+* Adapter la configuration du SecurityManager et de SELinux pour autoriser l'accès en écriture au fichier de journalisation (/var/log/microservice/ping.log)
+* Potentiellement, une attaque peut changer le contenu du fichier de journalisation - sans que SELinux et le Security Manager n'interviennent...
+* Concevez et implémenter un mécanimse pour assurer que le contenu du fichier ne puisse pas être compromis
 
 ---
 # Conclusion

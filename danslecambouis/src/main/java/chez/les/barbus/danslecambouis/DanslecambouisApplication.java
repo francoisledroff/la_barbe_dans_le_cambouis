@@ -16,7 +16,7 @@ public class DanslecambouisApplication {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/ping")
 	public String ping() {
-		return "pong";
+        // TODO
 	}
 
 }

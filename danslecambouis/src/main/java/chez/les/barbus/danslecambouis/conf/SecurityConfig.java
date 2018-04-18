@@ -18,9 +18,9 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-//@Configuration
-//@EnableWebSecurity
-//@ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
+@Configuration
+@EnableWebSecurity
+@ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
 {
   /**
@@ -89,7 +89,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
      */
 
     http.authorizeRequests()
-        .antMatchers("/account*").hasRole("api-user")
+        .antMatchers("/account/*").hasRole("api-user")
         .anyRequest().permitAll();
   }
 

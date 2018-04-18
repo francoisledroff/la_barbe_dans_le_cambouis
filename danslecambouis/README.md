@@ -94,10 +94,10 @@ to export the keycloak realm and users
 
 ###### oauth
 
-https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
-https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
-https://spring.io/guides/tutorials/spring-boot-oauth2/
-https://github.com/spring-guides/tut-spring-boot-oauth2/blob/master/github/src/main/java/com/example/SocialApplication.java
+* https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
+* https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
+* https://spring.io/guides/tutorials/spring-boot-oauth2/
+* https://github.com/spring-guides/tut-spring-boot-oauth2/blob/master/github/src/main/java/com/example/SocialApplication.java
 
 ### mongodb
 

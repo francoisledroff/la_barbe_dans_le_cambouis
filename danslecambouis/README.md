@@ -2,8 +2,7 @@
 
 ## Prerequisite
 
-* start keycloak docker: `docker-compose -f src/main/docker/keycloak.yml up`
-* build our app once (to download the various maven depencies): `mvnw clean install`
+* you can stop the keycloak docker
 
 
 ## Test Drive
@@ -17,6 +16,29 @@ Once the above is done
 
 * ping our barbus-app, by browsing to http://localhost:9091/ping
 * get a `pong`
+
+## lab6 
+
+* Nous allons passer de KeyCloak à Github et utiliser GitHub en tant que fournisseur d'identité.
+* Nous allons nous appuyer sur la norme ouverte pour l'autorisation appelée oAuth2
+  * [What the Heck is oAuth ?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
+*  Créez une application OAuth sur Github
+  * lisez cette doc 
+  
+  
+* https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
+* https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
+* https://spring.io/guides/tutorials/spring-boot-oauth2/
+
+
+* Renseignez vos github `clientId` et `clientSecret` dans le fichiers de configuration Spring
+* Testez l'application avec votre navigateur: `http://localhost:9091`
+
+## Allez plus loin
+
+faire de l'oAuth avec Keycloak
+* https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
+
 
 ### swagger (opened)
 

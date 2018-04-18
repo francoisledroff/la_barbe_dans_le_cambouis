@@ -179,6 +179,8 @@ Solution Open Source (RedHat) de gestion de l'identité et d'accès:
 
 # Lab2 - Démarrer Keycloak
 <div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
+
+* `git checkout lab2`
 * Démarrer l'instance Keycloak:
 <pre class="console">
 docker-compose -f src/main/docker/keycloak.yml up
@@ -197,7 +199,6 @@ docker-compose -f src/main/docker/keycloak.yml up
 ---
 # Lab2 - Mettre en place l'authentification à l'aide Keycloak
 
-* `git checkout lab2`
 * modifier la configuration fournie dans `application.properties` pour qu'elle fonctionne avec votre instance keycloak
 * vérifier que l'accès au service /account requiert une authentification et que /ping reste accessible
 
@@ -345,14 +346,14 @@ X-XSS-Protection: 1; mode=block
 <div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 
 * `git checkout lab6b`
-* Nous allons passé de KeyCloak à Github et utiliser GitHub en tant que fournisseur d'identité. 
+* Nous allons passé de KeyCloak à Github et utiliser GitHub en tant que fournisseur d'identité.
 * Nous allons nous appuyer sur la norme ouverte pour l'autorisation appelée oAuth2
   * [What the Heck is oAuth ?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
 *  Créez une application OAuth sur Github
   * lisez cette doc https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
 * Renseignez vos github `clientId` et `clientSecret` dans le fichiers de configuration Spring
 * Testez l'application avec votre navigateur: `http://localhost:9091`
- 
+
 ---
 # Lab6b - oAuth et REST
 
@@ -375,11 +376,11 @@ curl -v -H "Content-Type: application/json" --cookie "JSESSIONID=2E805872082A7B6
 * `git checkout lab7`
 * on amis en place MongoDB pour vous
 * à vous de rajouter une connexion sécurisée (SSL)
-  
+
 
 Quelques pointeurs:
 * http://mongodb.github.io/mongo-java-driver/3.0/driver/reference/connecting/ssl/?_ga=1.122423051.1001600813.1475930911
-* https://docs.mongodb.com/manual/tutorial/configure-x509-client-authentication/  
+* https://docs.mongodb.com/manual/tutorial/configure-x509-client-authentication/
 * http://mongodb.github.io/mongo-java-driver/3.0/driver/reference/connecting/ssl/?_ga=1.122423051.1001600813.1475930911
 
 <div class="aller-plus-loin">

@@ -20,7 +20,7 @@ c'est le titre de notre prochain **[Hands-on-lab](https://cfp.devoxx.fr/2018/tal
 
 * Systèmes d'exploitation:
   * Linux: bien, désactiver `SELinux`
-  * MacOS: Démerdez vous, bande d'hipster
+  * MacOS: Démerdez vous, payez vos impôts, bande d'hipsters
   * Windows: Merci d'installer un vrai OS
     * ou a minima faites en sorte d'avoir un `bash (unix shell)` à disposition
 
@@ -30,7 +30,7 @@ c'est le titre de notre prochain **[Hands-on-lab](https://cfp.devoxx.fr/2018/tal
   * Installez Maven (nous avons testé le lab avec `Apache Maven 3.3.9` et `Apache Maven 3.5.0 (Red Hat 3.5.0-6)`)
   * Installez docker (nous avons testé la version `18.04.0-ce-rc2` et `1.13.1, build caba767-unsupported`)
   * Installez docker-compose (nous avons testé la version `1.20.1` et `1.17.1, build 6d101fb`)
-  * Installez OpenSSL (nous avons testé avec `OpenSSL 1.0.1p 9 Jul 2015`)
+  * Installez OpenSSL (nous avons testé avec `OpenSSL 1.0.1p 9 Jul 2015` et `1.1.0g-fips @ Nov 2017`)
 
 
 Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du palais des congrès, lancer les commandes suivantes à l'avance:

@@ -231,7 +231,7 @@ docker-compose -f src/main/docker/keycloak.yml up
 * Démarrer l'instance nginx:
 <pre class="console">$ docker-compose -f src/main/docker/nginx.yml up</pre>
 * Modifier la configuration fournie pour rediriger les requêtes vers votre service
-(éditer le fichier `src/main/docker/nginx-config/basic-rp.conf`)
+(placer votre configuration dans `src/main/docker/nginx-config/basic-rp/` qui sera monté `/etc/nginx.conf.d/`)
 
 ---
 # Lab4 - Mise en place d'un serveur inverse filtrant avec Nginx

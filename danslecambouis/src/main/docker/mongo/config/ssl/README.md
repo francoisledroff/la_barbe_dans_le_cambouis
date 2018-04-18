@@ -1,3 +1,5 @@
+## Mongo ssl server and client cert
+
 To secure data transportation, you need to generate two SSL certificates for MongoDB 
 — one for the server, and one for the client that will access the database.
 
@@ -38,3 +40,13 @@ When prompted for the `Common Name / FQDN` use `localhost`
 Concatenate the files you just generated into a single .pem file:
 
     cat client.crt client.key >> client.pem
+
+
+## Configure Java Client For SSL
+
+Create a new Java trust store in the local application's root directory, importing the certificate generated from the previous section. This is necessary because in this example a self-signed certificate is used.
+
+    $ keytool -import -alias "mongo-client-cert" -file "client.crt" -keystore truststore.ts -noprompt -storepass "supersecret"
+    $ keytool -list -keystore truststore.ts -storepass supersecret
+    
+    

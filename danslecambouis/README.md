@@ -23,16 +23,25 @@ Once the above is done
 * Nous allons nous appuyer sur la norme ouverte pour l'autorisation appelée oAuth2
   * [What the Heck is oAuth ?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
 *  Créez une application OAuth sur Github
-  * lisez cette doc 
+  * lisez ces docs 
+    * https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
+    * https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
+    * https://spring.io/guides/tutorials/spring-boot-oauth2/
   
-  
-* https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
-* https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
-* https://spring.io/guides/tutorials/spring-boot-oauth2/
-
 
 * Renseignez vos github `clientId` et `clientSecret` dans le fichiers de configuration Spring
 * Testez l'application avec votre navigateur: `http://localhost:9091`
+
+* Comment faire pour ne pas partager ces secrets sur le repo de source ?
+
+Essayez de jouer avec notre API avec curl
+
+    curl -v http://localhost:9091/stuff
+
+    curl -v -H "Content-Type: application/json" --cookie "JSESSIONID=2E805872082A7B62043F3FEB3782FD58" -X POST -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
+
+pas très REST ?
+et oAuth ?
 
 ## Allez plus loin
 

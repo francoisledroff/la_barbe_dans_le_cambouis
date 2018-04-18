@@ -32,6 +32,7 @@ c'est le titre de notre prochain **[Hands-on-lab](https://cfp.devoxx.fr/2018/tal
   * Installez docker-compose (nous avons testé la version `1.20.1` et `1.17.1, build 6d101fb`)
   * Installez OpenSSL (nous avons testé avec `OpenSSL 1.0.1p 9 Jul 2015`)
 
+
 Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du palais des congrès, lancer les commandes suivantes à l'avance:
 
   * dans votre terminal clonez ce repo: `git clone https://github.com/francoisledroff/la_barbe_dans_le_cambouis.git`

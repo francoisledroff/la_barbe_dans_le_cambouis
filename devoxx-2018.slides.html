@@ -189,7 +189,7 @@ docker-compose -f src/main/docker/keycloak.yml up
 # Lab2 - Définir de notre royaume de sécurité
 
 * TODO photo
-* <a href="https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/">Pour plus de détails suivre ce bille de Red Hat </a> 
+* <a href="https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/">Pour plus de détails suivre ce bille de Red Hat </a>
 
 
 ---
@@ -262,7 +262,7 @@ docker-compose -f src/main/docker/keycloak.yml up
 <div class="aller-plus-loin">
 <span class="aller-plus-loin-titre">Pour aller plus loin...</span>
 <ul>
-  <li>Incident: la clef privé a été compromise: révoquez le certificat 
+  <li>Incident: la clef privé a été compromise: révoquez le certificat
     et déployez un nouveau certificat.
 </li>
 </ul>
@@ -298,7 +298,7 @@ docker-compose -f src/main/docker/keycloak.yml up
 ---
 # Lab6 - CSRF et Cache control
 
-* Vérifier le bon fonctionnement de l'API `/stuff` 
+* Vérifier le bon fonctionnement de l'API `/stuff`
 * Regardez la documentation détaillant la protection contre le <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html">CSRF</a> et la <a href="https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control">gestion du cache</a> à l'aide de Spring Security
 * Jouez avec les requêtes `curl` suivantes:
 <pre class="console">
@@ -467,10 +467,58 @@ confiner à `/ping` (volume monté, mappé sur la racine du projet)
 ---
 # Lab8 -  SELinux
 
-* Modifier l'utilisateur pour l'associer au service:
+* Installez les dépendances nécessaires à SELinux (RHEL/Fedora)
+<pre class="console">$ dnf install -y policycoreutils \
+	policycoreutils-python selinux-policy \
+    selinux-policy-targeted libselinux-utils\
+	setroubleshoot-server setools setools-console \
+	mcstrans java-1.8.0-openjdk-devel</pre>
+* Créez un group et un utilisateur pour exécuter le service:
+<pre class="console">$ sudo groupadd -g 666 microservices
+$ sudo useradd -M -u 111 -g 666 -d /ping \
+	-s /bin/bash  pingservice</pre>
+* Modifiez l'utilisateur pour l'associer au service pour SELinux:
 <pre class="console">$ semanage login -a -s user_u pingservice</pre>
 ---
+# Lab8 - SELinux
 
+* Vérifiez que l'association a été crée:
+<pre class="console">$ sudo semanage login -l
+Login Name           SELinux User         MLS/MCS Range
+__default__          unconfined_u         s0-s0:c0.c1023
+pingservice          user_u               s0
+root                 unconfined_u         s0-s0:c0.c1023</pre>
+* Créez un répertoire /ping et déployez dedans le service ping:
+<pre class="console">$ sudo mkdir /ping
+cp -Rv danslecambouis/ /ping/
+cp -Rv ~/.m2/ /ping/.m2/</pre>
+* Transférez le répertoire à l'utilisateur pingservice:
+<pre class="console">$ sudo chown -R pingservice:microservices /ping/</pre>
+
+---
+# Lab8 - SELinux
+
+* (Re)activez SELinux:
+<pre class="console">$ sudo setenforce 1
+$ getenforce
+Enforcing</pre>
+* Démarrez le service avec l'utilisateur pingservice et vérifier que /ping est accessible:
+<pre class="console">$ sudo su - pingservice
+$ cd /ping/danslecambouis/
+$ ./mvnw spring-boot:run</pre>
+* Modifiez le service `/ping` pour que chaque accès à ce denier soit journaliser dans le fichier `/var/log/ping.log`
+* Redémarrez le service et vérifiez que le service ne peut écrire dans le fichier `/var/log/ping.log`
+
+---
+# Lab8 - SELinux
+
+<div class="aller-plus-loin">
+<span class="aller-plus-loin-titre">Pour aller plus loin...</span>
+<ul>
+  <li>Adapter la configuration SELinux pour autoriser l'accès, en écriture, au fichier de journalisation</li>
+</ul>
+
+---
 # Lab9 - Boss de fin de nivaeau: DevSec...
 
 <div class="timer">30' <img src="img/chronometer.png" height="50px"/></div>

@@ -49,4 +49,5 @@ Create a new Java trust store in the local application's root directory, importi
     $ keytool -import -alias "mongo-client-cert" -file "client.crt" -keystore truststore.ts -noprompt -storepass "supersecret"
     $ keytool -list -keystore truststore.ts -storepass supersecret
     
+    keytool -importcert -trustcacerts -file client.crt -keystore supersecret -storepass <password>
     

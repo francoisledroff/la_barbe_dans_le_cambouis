@@ -13,7 +13,7 @@
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
       }
-      .remark-code, .remark-inline-code { font-size:80%; font-family:Courier; background-color: #FFFFE0}
+      .remark-code, .remark-inline-code { font-size:110%; font-family:Courier; background-color: #FFFFE0}
       .big-list { font-size:200%; }
       .bigger-list { font-size: 280%; }
       .timer { text-align:right; font-style: italic; font-size: 200%; height: 50px; }
@@ -343,16 +343,50 @@ X-XSS-Protection: 1; mode=block
 <div class="timer">15' <img src="img/chronometer.png" height="50px"/></div>
 
 * `git checkout lab6b`
-*  Créez une application
-* https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
+* Nous allons passé de KeyCloak à Github et utiliser GitHub en tant que fournisseur d'identité. 
+* Nous allons nous appuyer sur la norme ouverte pour l'autorisation appelée oAuth2
+  * [What the Heck is oAuth ?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
+*  Créez une application OAuth sur Github
+  * lisez cette doc https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
+* Renseignez vos github `clientId` et `clientSecret` dans le fichiers de configuration Spring
+* Testez l'application avec votre navigateur: `http://localhost:9091`
+ 
+---
+# Lab6b - oAuth et REST
+
+Essayez de jouer avec notre API avec `curl`
+
+<pre class="console">
+
+curl -v http://localhost:9091/stuff
+
+curl -v -H "Content-Type: application/json" --cookie "JSESSIONID=2E805872082A7B62043F3FEB3782FD58" -X POST -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
+</pre>
+
+* pas très REST ?
+* et oAuth ?
 
 ---
 # Lab7 - Base de données
 <div class="timer">20' <img src="img/chronometer.png" height="50px"/></div>
-TODO:
-* mise en place de MongoDB
-* connexion sécurisée (SSL)
-* chiffrement des données
+
+* `git checkout lab7`
+* on amis en place MongoDB pour vous
+* à vous de rajouter une connexion sécurisée (SSL)
+  
+
+Quelques pointeurs:
+* http://mongodb.github.io/mongo-java-driver/3.0/driver/reference/connecting/ssl/?_ga=1.122423051.1001600813.1475930911
+* https://docs.mongodb.com/manual/tutorial/configure-x509-client-authentication/  
+* http://mongodb.github.io/mongo-java-driver/3.0/driver/reference/connecting/ssl/?_ga=1.122423051.1001600813.1475930911
+
+<div class="aller-plus-loin">
+<span class="aller-plus-loin-titre">Pour aller plus loin...</span>
+<ul>
+  <li>chifrer les données dans mongoDB
+</li>
+</ul>
+</div>
 
 ---
 

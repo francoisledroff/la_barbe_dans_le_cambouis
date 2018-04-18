@@ -107,3 +107,9 @@ https://www.digitalocean.com/community/tutorials/how-to-run-a-secure-mongodb-ser
 
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
+
+* Astuce: retrouver l'IP attribué par Docker:
+
+$ docker ps -q \
+    | xargs docker inspect --format '{{ .Id }} \
+    - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'

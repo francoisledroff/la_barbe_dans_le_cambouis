@@ -62,9 +62,9 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
   {
     super.configure(http);
 
-    //http.csrf()
-    //  .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 
+
+    //TODO play with crsf and other spring-security options
     //http
         //.csrf().disable();
         //.headers().disable()
@@ -88,8 +88,9 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
 
      */
 
+    //TODO add the correct user (look into Keycloak)
     http.authorizeRequests()
-        .antMatchers("/account/*").hasRole("api-user")
+        .antMatchers("/account/*").hasRole("TODO")
         .anyRequest().permitAll();
   }
 

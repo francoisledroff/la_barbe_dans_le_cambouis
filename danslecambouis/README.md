@@ -12,7 +12,6 @@ Once the above is done
 * start the app : `mvnw clean install spring-boot:run`
   * or run/debug `DanslecambouisApplication` from your IDE  
 
-
 ### ping (opened)
 
 * ping our barbus-app, by browsing to http://localhost:9091/ping
@@ -27,11 +26,16 @@ Explore our API documentation at
 
 * browse to http://localhost:9091/account/me
 * be re-directed to keycloak
+* oups the client is not found
+ * add it where it belongs
+ *retry
 * user `user/password` to log in
 * be redirected
-* get a `TODO account for principal <keycloak-username>` for now
+* get a `TODO get the principal name here` 
 
-### stuff (csrf demo)
+** look for all the TODOs and do them **
+
+### play with spring security csrf mitigations and other features
 
 Try getting, posting or deleting stuff
  

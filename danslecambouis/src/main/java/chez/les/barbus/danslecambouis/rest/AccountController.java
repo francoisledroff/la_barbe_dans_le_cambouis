@@ -15,12 +15,14 @@ public class AccountController {
 
   @GetMapping("/id")
   public String id(Principal principal) {
-    return principal.getName();
+    //TODO
+    return "TODO get the principal name here";
   }
 
   @GetMapping( "/me" )
   public User user(Principal principal) {
-    return new User(principal.getName());
+    //TODO
+    return new User("TODO get the principal name here");
   }
 
 }

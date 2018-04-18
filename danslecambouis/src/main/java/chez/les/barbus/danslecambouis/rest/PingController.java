@@ -14,17 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/ping")
 public class PingController {
 
-	private static final Path LOG_FILE = Paths.get("/var/log/ping.log");
-
 	@GetMapping()
 	public String ping() {
-		try {
-			Files.write(Paths.get("/var/log/ping.log"), ("Called!").getBytes(),
-					StandardOpenOption.APPEND);
-		} catch (IOException e) {
-			System.out.println("Can't log :/");
-			e.printStackTrace();
-		}
 		return "pong";
 	}
 

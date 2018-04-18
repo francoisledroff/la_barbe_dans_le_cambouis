@@ -38,5 +38,5 @@ Pour plus de comfort durant le lab et ne pas souffir des aléas du réseau du pa
   * puis `cd la_barbe_dans_le_cambouis`
   * démarrez notre container keycloak: `docker-compose -f src/main/docker/keycloak.yml up`
   * construisez notre nginx en exécutant: `./src/main/docker/build-docker-image.sh`
-  * construisez notre container mongo en exécutant: `docker build -t mongo src/main/docker/mongo/`
+  * construisez notre container mongo en exécutant: `./src/main/docker/build-docker-image.sh danslecambouis/src/main/docker/mongo/Dockerfile mongo`
   * construisez notre bonne vieille application Java (et télecharger internet pour satisfaire maven): `./mvnw clean install` ou `mvn clean install`

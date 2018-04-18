@@ -23,62 +23,32 @@ Once the above is done
 * Nous allons nous appuyer sur la norme ouverte pour l'autorisation appelée oAuth2
   * [What the Heck is oAuth ?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
 *  Créez une application OAuth sur Github
-  * lisez cette doc 
+  * lisez ces docs 
+    * https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
+    * https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
+    * https://spring.io/guides/tutorials/spring-boot-oauth2/
   
-  
-* https://developer.github.com/apps/building-oauth-apps/authorization-options-for-oauth-apps/#web-application-flow
-* https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
-* https://spring.io/guides/tutorials/spring-boot-oauth2/
-
 
 * Renseignez vos github `clientId` et `clientSecret` dans le fichiers de configuration Spring
 * Testez l'application avec votre navigateur: `http://localhost:9091`
+
+* Comment faire pour ne pas partager ces secrets sur le repo de source ?
+
+Essayez de jouer avec notre API avec curl
+
+    curl -v http://localhost:9091/stuff
+
+    curl -v -H "Content-Type: application/json" --cookie "JSESSIONID=2E805872082A7B62043F3FEB3782FD58" -X POST  http://localhost:9091/stuff
+
+pas très REST ?
+et oAuth ?
+
 
 ## Allez plus loin
 
 faire de l'oAuth avec Keycloak
 * https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
 
-
-### swagger (opened)
-
-Explore our API documentation at
-* browse to http://localhost:9091/swagger-ui.html
-
-### account (auth demo)
-
-* browse to http://localhost:9091/account/me
-* be re-directed to keycloak
-* user `user/password` to log in
-* be redirected
-* get a `TODO account for principal <keycloak-username>` for now
-
-### stuff (csrf demo)
-
-Try getting, posting or deleting stuff
- 
-    curl -v http://localhost:9091/stuff
-    curl -v -H "Content-Type: application/json" -X POST -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
-    curl -v -H "Content-Type: application/json" -X DELETE -d '{"title":"un titre","text":"du texte"}' http://localhost:9091/stuff
-
-You'll might get response such as
-
-    {"timestamp":1523630530507,"status":403,"error":"Forbidden","message":"Could not verify the provided CSRF token because your session was not found.","path":"/stuff"} 
-
-Note the various headers mitigating click-jacking, content sniffing, xss attacks and more
- 
-Spring Security allows users to easily inject the default security headers to assist in protecting their application.
-The default for Spring Security is to include the following headers:
- 
-       Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-       Pragma: no-cache
-       Expires: 0
- 
-       X-Content-Type-Options: nosniff
- 
-       Strict-Transport-Security: max-age=31536000 ; includeSubDomains
-       X-Frame-Options: DENY
-       X-XSS-Protection: 1; mode=block
 
 
 ## Misc Pointers, notes and references
@@ -110,6 +80,20 @@ to export the keycloak realm and users
 * https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control
 
 * webinar https://spring.io/blog/2014/01/21/webinar-replay-spring-security-3-2
+
+##### spring security 
+
+* https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html
+* https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-cache-control
+
+* webinar https://spring.io/blog/2014/01/21/webinar-replay-spring-security-3-2
+
+###### oauth
+
+* https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth
+* https://developers.redhat.com/blog/2017/01/05/spring-boot-and-oauth2-with-keycloak/
+* https://spring.io/guides/tutorials/spring-boot-oauth2/
+* https://github.com/spring-guides/tut-spring-boot-oauth2/blob/master/github/src/main/java/com/example/SocialApplication.java
 
 
 ### useful docker commands

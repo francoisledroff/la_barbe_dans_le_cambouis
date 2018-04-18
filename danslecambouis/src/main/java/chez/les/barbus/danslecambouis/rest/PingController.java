@@ -23,7 +23,7 @@ public class PingController {
 					StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			System.out.println("Can't log :/");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return "pong";
 	}

@@ -15,7 +15,7 @@ Run the mongo container :
 
 Access the mongodb    
 
-    ./access-ssl.sh
+    ./access.sh
 
       > show dbs
       admin  0.000GB

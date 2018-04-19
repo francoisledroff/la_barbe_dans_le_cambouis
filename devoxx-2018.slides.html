@@ -64,7 +64,7 @@ class: center, middle
 * lab4 - mise en place d'un reverse-proxy filtrant
 * lab5 - mise en place du chiffrement SSL
 * lab6 - intégration avec Sprint Security
-* Lab6b - jouons avec oAuth, identification avec Github
+* lab6b - jouons avec oAuth, identification avec Github
 * lab7 - base de données - chiffrement et connexion sécurisée
 * lab8 - protéger le système de l'application avec le Security Manager et SELinux
 * lab9 - intégrité du fichier du contenu du fichier de journalisation
@@ -292,10 +292,10 @@ docker-compose -f src/main/docker/keycloak.yml up
 # Lab6 - Mise en place de Spring Security
 
 * `git checkout lab6`
-* Ajouter Spring Security aux dépendances du projet
-.center[![Spring Security Deps](img/springboot-security.png)]
-* Migrer la configuration de KeyCloak du `application.properties` dans une classe qui étend `KeycloakWebSecurityConfigurerAdapter`
+* regarder le fichier `README.md` à la racine de `danslecambouis`
+* finir la configuration de springboot
 * Tester et vérifier que l'intégration avec Keycloak fonctionne toujours sans encombre
+* Sécuriser `/account/me`
 
 * Ref: <a href="https://developers.redhat.com/blog/2017/05/25/easily-secure-your-spring-boot-applications-with-keycloak/">Spring Boot with Keycloak</a>
 
